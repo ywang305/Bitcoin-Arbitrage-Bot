@@ -1,7 +1,9 @@
 package main
 
 import (
-	"fmt"
+	"bytes"
+	"encoding/json"
+	"net/http"
 	"time"
 )
 
@@ -36,7 +38,22 @@ func SearchMinMax(rcvQ []Data) {
 			}
 		}
 	}
+
+	profit := 0.0
 	if minAsk.Ask < maxBid.Bid {
-		fmt.Printf("simulator capture profit : %f, between %v and %v\n", maxBid.Bid-minAsk.Ask, minAsk, maxBid)
+		//fmt.Printf("simulate profit : %f, between %v and %v\n", maxBid.Bid-minAsk.Ask, minAsk, maxBid)
+		profit = maxBid.Bid - minAsk.Ask
 	}
+
+	postData := struct {
+		Tick   []Data  `json:"tick"`
+		Profit float64 `json:"profit"`
+	}{
+		Tick: rcvQ, Profit: profit,
+	}
+
+	jsonValue, _ := json.Marshal(postData)
+
+	resp, _ := http.Post("http://localhost:3000/api/btc", "application/json", bytes.NewBuffer(jsonValue))
+	defer resp.Body.Close()
 }

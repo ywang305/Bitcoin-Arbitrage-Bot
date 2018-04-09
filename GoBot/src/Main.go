@@ -20,7 +20,7 @@ func main() {
 	pREST := [...]*REST{
 		&REST{time.NewTicker(T * time.Second), "tBTCUSD", GetBitfinex},
 		&REST{time.NewTicker(T * time.Second), "BTC-USD", GetCoinbase},
-		&REST{time.NewTicker(T * time.Second), "btc_usd", GetOkcoin},
+		//&REST{time.NewTicker(T * time.Second), "btc_usd", GetOkcoin},
 		&REST{time.NewTicker(T * time.Second), "btcusd", GetBitstamp},
 		&REST{time.NewTicker(T * time.Second), "BTC-USD", GetGdax},
 		&REST{time.NewTicker(T * time.Second), "btcusd", GetGemini},

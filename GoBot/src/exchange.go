@@ -85,12 +85,7 @@ func GetCoinbase(symbol string) (Data, error) {
 		bidPrice, askPrice = askPrice, bidPrice
 	}
 
-	return Data{
-		Title:  "Coinbase",
-		Symbol: symbol,
-		Bid:    bidPrice,
-		Ask:    askPrice,
-	}, nil
+	return Data{Title: "Coinbase", Symbol: symbol, Bid: bidPrice, Ask: askPrice}, nil
 }
 
 // Okcoin ...
