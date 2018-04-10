@@ -18,31 +18,35 @@ type REST struct {
 	run    func(string) (Data, error)
 }
 
-func main() {
-	T := time.Duration(6)
-	pREST := [...]*REST{
-		&REST{time.NewTicker(T * time.Second), "tBTCUSD", GetBitfinex},
-		&REST{time.NewTicker(T * time.Second), "BTC-USD", GetCoinbase},
-		//&REST{time.NewTicker(T * time.Second), "btc_usd", GetOkcoin},
-		&REST{time.NewTicker(T * time.Second), "btcusd", GetBitstamp},
-		&REST{time.NewTicker(T * time.Second), "BTC-USD", GetGdax},
-		&REST{time.NewTicker(T * time.Second), "btcusd", GetGemini},
-		&REST{time.NewTicker(T * time.Second), "XBTUSD", GetItbit},
-		&REST{time.NewTicker(T * time.Second), "BTC/USD", GetCex},
-		&REST{time.NewTicker(T * time.Second), "BTC/USD", GetBitbay},
-		&REST{time.NewTicker(T * time.Second), "BTCUSD", GetBtcc},
-	}
+// Sync Cycle
+const T = time.Duration(6)
 
-	getCh := make(chan Data)      // shared-data channel for exchage REST get
-	postCh := make(chan DTO, 100) // post to nodeJs
+var tasks = map[string]*REST{
+	"Bitfinex": &REST{time.NewTicker(T * time.Second), "tBTCUSD", GetBitfinex},
+	"Coinbase": &REST{time.NewTicker(T * time.Second), "BTC-USD", GetCoinbase},
+	//"Okcoin": &REST{time.NewTicker(T * time.Second), "btc_usd", GetOkcoin},
+	"Bitstamp": &REST{time.NewTicker(T * time.Second), "btcusd", GetBitstamp},
+	"Gdax":     &REST{time.NewTicker(T * time.Second), "BTC-USD", GetGdax},
+	"Gemini":   &REST{time.NewTicker(T * time.Second), "btcusd", GetGemini},
+	"Itbit":    &REST{time.NewTicker(T * time.Second), "XBTUSD", GetItbit},
+	"Cex":      &REST{time.NewTicker(T * time.Second), "BTC/USD", GetCex},
+	"Bitbay":   &REST{time.NewTicker(T * time.Second), "BTC/USD", GetBitbay},
+	"Btcc":     &REST{time.NewTicker(T * time.Second), "BTCUSD", GetBtcc},
+}
+
+func main() {
+
+	getCh := make(chan Data)       // shared-data channel for exchage REST get
+	postCh := make(chan DTO, 1000) // post to nodeJs
 	defer func() {
 		close(getCh)
 		close(postCh)
 	}()
 
-	for _, pT := range pREST {
-		go TickWrapper(pT, getCh)
+	for _, pREST := range tasks {
+		go TickWrapper(pREST, getCh)
 	}
+
 	go TickSimulate(time.NewTicker(T*time.Second), getCh, postCh)
 
 	go PostToNode(postCh)
@@ -58,7 +62,7 @@ func PostToNode(in <-chan DTO) {
 			defer resp.Body.Close()
 			fmt.Printf("client rcvd-statusCode : %d \n", resp.StatusCode)
 		} else {
-			fmt.Println(err)
+			log.Println(err)
 		}
 	}
 }

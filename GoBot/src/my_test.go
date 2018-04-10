@@ -2,8 +2,15 @@ package main
 
 import (
 	"testing"
+	"time"
 )
 
+func TestFormat(t *testing.T) {
+	tic := time.Now()
+	t.Logf("time : %s", tic.Format("Jan 2 2006 15:04:05 EST"))
+}
+
+/*
 func TestTick(t *testing.T) {
 	// funcs
 	rests := []struct {
@@ -32,6 +39,7 @@ func TestTick(t *testing.T) {
 		}
 	}
 }
+*/
 
 /*
 func TestChannel(t *testing.T) {

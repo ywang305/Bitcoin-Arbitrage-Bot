@@ -11,10 +11,13 @@ app.use(bodyParser.json());
 
 app.post('/api/btc', (req, res) => {
 	const data = req.body; // body-parser assign to it
-	console.log('server rcv:\n', data);
 	res.sendStatus(200);
-
-
+	if(data.type=='trade') {
+		let diff = data.to.bid-data.from.ask;
+		console.log(`   >>>> id:${data.id} profit: ${diff} --- buy ${data.from.ask} then sell ${data.to.bid}\n`);
+	} else {
+		console.log(' >> server rcv :\n', data);
+	}
 });
 
 

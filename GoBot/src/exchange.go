@@ -7,7 +7,7 @@ import (
 	"strconv"
 )
 
-// Data : DTO
+// Data , for REST api result
 type Data struct {
 	Title  string  `json:"title"`
 	Symbol string  `json:"symbol"`
@@ -158,7 +158,7 @@ func GetGdax(symbol string) (Data, error) {
 	}
 	bid, _ := strconv.ParseFloat(rcv.Bid, 64)
 	ask, _ := strconv.ParseFloat(rcv.Ask, 64)
-	return Data{Title: "GDAX", Symbol: symbol, Bid: bid, Ask: ask}, nil
+	return Data{Title: "Gdax", Symbol: symbol, Bid: bid, Ask: ask}, nil
 }
 
 // "https://api.gemini.com/v1/pubticker/btcusd"
@@ -206,7 +206,7 @@ func GetItbit(symbol string) (Data, error) {
 	}
 	bid, _ := strconv.ParseFloat(rcv.Bid, 64)
 	ask, _ := strconv.ParseFloat(rcv.Ask, 64)
-	return Data{Title: "itBit", Symbol: symbol, Bid: bid, Ask: ask}, nil
+	return Data{Title: "Itbit", Symbol: symbol, Bid: bid, Ask: ask}, nil
 }
 
 // https://cex.io/api/ticker/BTC/USD
@@ -272,5 +272,5 @@ func GetBtcc(symbol string) (Data, error) {
 	if err := json.NewDecoder(resp.Body).Decode(&rcv); err != nil {
 		return Data{}, err
 	}
-	return Data{Title: "BTCC", Symbol: symbol, Bid: rcv.Ticker.Bid, Ask: rcv.Ticker.Ask}, nil
+	return Data{Title: "Btcc", Symbol: symbol, Bid: rcv.Ticker.Bid, Ask: rcv.Ticker.Ask}, nil
 }

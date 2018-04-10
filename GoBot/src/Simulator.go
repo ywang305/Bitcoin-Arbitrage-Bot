@@ -6,9 +6,32 @@ import (
 
 // Data Trasfer Object: for http.Post
 type DTO struct {
+	Type  string `json:"type"`
+	ID    string `json:"id"`
 	Ticks []Data `json:"ticks"`
 	From  Data   `json:"from"`
 	To    Data   `json:"to"`
+}
+
+// Transaction with delay
+func SimTransact(id string, from Data, to Data, out chan<- DTO) {
+	delay := time.Duration(60)
+
+	time.Sleep(delay * time.Second)
+	fromEnt := tasks[from.Title]
+	toEnt := tasks[to.Title]
+	if minAsker, err1 := fromEnt.run(fromEnt.symbol); err1 == nil {
+		if maxBider, err2 := toEnt.run(toEnt.symbol); err2 == nil {
+			postData := DTO{
+				Type:  "trade",
+				ID:    id,
+				Ticks: nil,
+				From:  minAsker, // - minAsker.Ask
+				To:    maxBider, // + maxBider.Bid
+			}
+			out <- postData
+		}
+	}
 }
 
 // Simulate ... fetch data from shared channel
@@ -18,14 +41,23 @@ func TickSimulate(tk *time.Ticker, in <-chan Data, out chan<- DTO) {
 	rcvQ := []Data{}
 	for {
 		select {
-		case <-tk.C: // calculating at sync point
-			// fmt.Printf("%s, Simulator search queue : %v \n", t.Format("15:04:05 EST"), rcvQ)
+		case tic := <-tk.C: // calculating at sync point
+			// fmt.Printf("%s, Simulator search queue : %v \n", tic.Format("15:04:05 EST"), rcvQ)
 			from, to := SearchMinMax(rcvQ) // ;fmt.Printf("%v , %v \n", from, to)
+
+			id := tic.Format("Jan 2 2006 15:04:05 EST")
+			// buy & sell
+			if from.Title != "" && to.Title != "" {
+				go SimTransact(id, from, to, out)
+			}
+
+			// send to postCh channel
 			if len(rcvQ) > 0 {
-				postData := DTO{Ticks: rcvQ, From: from, To: to}
+				postData := DTO{Type: "tick", ID: id, Ticks: rcvQ, From: from, To: to}
 				out <- postData
 				rcvQ = []Data{}
 			}
+
 		case d := <-in: // fetch channel data at interval
 			rcvQ = append(rcvQ, d)
 		}
