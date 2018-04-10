@@ -8,12 +8,13 @@ const app = express();
 app.use(express.static('static'));
 app.use(bodyParser.json());
 
-let Debug = console.log;
 
 app.post('/api/btc', (req, res) => {
 	const data = req.body; // body-parser assign to it
-	Debug('server rcv:\n', data);
-	res.json(data);
+	console.log('server rcv:\n', data);
+	res.sendStatus(200);
+
+
 });
 
 

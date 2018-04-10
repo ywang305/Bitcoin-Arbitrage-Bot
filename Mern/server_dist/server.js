@@ -23,12 +23,10 @@ const app = (0, _express2.default)();
 app.use(_express2.default.static('static'));
 app.use(_bodyParser2.default.json());
 
-let Debug = console.log;
-
 app.post('/api/btc', (req, res) => {
 	const data = req.body; // body-parser assign to it
-	Debug('server rcv:\n', data);
-	res.json(data);
+	console.log('server rcv:\n', data);
+	res.sendStatus(200);
 });
 
 app.listen(3000, function () {

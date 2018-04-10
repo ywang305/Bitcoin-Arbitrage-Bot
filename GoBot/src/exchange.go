@@ -20,11 +20,10 @@ func GetBitfinex(symbol string) (Data, error) {
 	// URIbitfinex  Base URI
 	const URIbitfinex = "https://api.bitfinex.com/v2/ticker/"
 	resp, err := http.Get(URIbitfinex + symbol)
-	defer resp.Body.Close()
-
 	if err != nil {
 		return Data{}, err
 	}
+	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
 		return Data{}, fmt.Errorf("   bitfinex httpStatus : %d", resp.StatusCode)
@@ -52,17 +51,16 @@ func GetCoinbase(symbol string) (Data, error) {
 	}
 	respBuy, err1 := http.Get(URIcoinbase + symbol + "/buy")
 	respSell, err2 := http.Get(URIcoinbase + symbol + "/sell")
-	defer func() {
-		respBuy.Body.Close()
-		respSell.Body.Close()
-	}()
-
 	if err1 != nil {
 		return Data{}, err1
 	}
 	if err2 != nil {
 		return Data{}, err2
 	}
+	defer func() {
+		respBuy.Body.Close()
+		respSell.Body.Close()
+	}()
 
 	if respBuy.StatusCode != http.StatusOK {
 		return Data{}, fmt.Errorf("  coinbase http.Status : %d", respBuy.StatusCode)
@@ -92,10 +90,10 @@ func GetCoinbase(symbol string) (Data, error) {
 func GetOkcoin(symbol string) (Data, error) {
 	const URI = "https://www.okcoin.com/api/v1/ticker.do?symbol="
 	resp, err := http.Get(URI + symbol)
-	defer resp.Body.Close()
 	if err != nil {
 		return Data{}, err
 	}
+	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
 		return Data{}, fmt.Errorf("Okcoin httpStatus : %d", resp.StatusCode)
 	}
@@ -119,10 +117,10 @@ func GetOkcoin(symbol string) (Data, error) {
 func GetBitstamp(symbol string) (Data, error) {
 	const URI = "https://www.bitstamp.net/api/v2/ticker/"
 	resp, err := http.Get(URI + symbol)
-	defer resp.Body.Close()
 	if err != nil {
 		return Data{}, err
 	}
+	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
 		return Data{}, fmt.Errorf("Okcoin httpStatus : %d", resp.StatusCode)
 	}
@@ -143,10 +141,10 @@ func GetBitstamp(symbol string) (Data, error) {
 func GetGdax(symbol string) (Data, error) {
 	const URI = "https://api.gdax.com/products/"
 	resp, err := http.Get(URI + symbol + "/ticker")
-	defer resp.Body.Close()
 	if err != nil {
 		return Data{}, err
 	}
+	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
 		return Data{}, fmt.Errorf("GDAX httpStatus : %d", resp.StatusCode)
 	}
@@ -167,10 +165,10 @@ func GetGdax(symbol string) (Data, error) {
 func GetGemini(symbol string) (Data, error) {
 	const URI = "https://api.gemini.com/v1/pubticker/"
 	resp, err := http.Get(URI + symbol)
-	defer resp.Body.Close()
 	if err != nil {
 		return Data{}, err
 	}
+	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
 		return Data{}, fmt.Errorf("Gemini httpStatus : %d", resp.StatusCode)
 	}
@@ -191,10 +189,10 @@ func GetGemini(symbol string) (Data, error) {
 func GetItbit(symbol string) (Data, error) {
 	const URI = "https://api.itbit.com/v1/markets/"
 	resp, err := http.Get(URI + symbol + "/ticker")
-	defer resp.Body.Close()
 	if err != nil {
 		return Data{}, err
 	}
+	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
 		return Data{}, fmt.Errorf("itBit httpStatus : %d", resp.StatusCode)
 	}
@@ -215,10 +213,10 @@ func GetItbit(symbol string) (Data, error) {
 func GetCex(symbol string) (Data, error) {
 	const URI = "https://cex.io/api/ticker/"
 	resp, err := http.Get(URI + symbol)
-	defer resp.Body.Close()
 	if err != nil {
 		return Data{}, err
 	}
+	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
 		return Data{}, fmt.Errorf("Cex httpStatus : %d", resp.StatusCode)
 	}
@@ -236,10 +234,10 @@ func GetCex(symbol string) (Data, error) {
 func GetBitbay(symbol string) (Data, error) {
 	const URI = "https://bitbay.net/API/Public/"
 	resp, err := http.Get(URI + symbol + "/ticker.json")
-	defer resp.Body.Close()
 	if err != nil {
 		return Data{}, err
 	}
+	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
 		return Data{}, fmt.Errorf("Bitbay httpStatus : %d", resp.StatusCode)
 	}
@@ -257,10 +255,10 @@ func GetBitbay(symbol string) (Data, error) {
 func GetBtcc(symbol string) (Data, error) {
 	const URI = "https://spotusd-data.btcc.com/data/pro/ticker?symbol="
 	resp, err := http.Get(URI + symbol)
-	defer resp.Body.Close()
 	if err != nil {
 		return Data{}, err
 	}
+	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
 		return Data{}, fmt.Errorf("BTCC httpStatus : %d", resp.StatusCode)
 	}

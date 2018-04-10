@@ -2,8 +2,11 @@ package main
 
 import (
 	"bufio"
+	"bytes"
+	"encoding/json"
 	"fmt"
 	"log"
+	"net/http"
 	"os"
 	"time"
 )
@@ -30,15 +33,34 @@ func main() {
 		&REST{time.NewTicker(T * time.Second), "BTCUSD", GetBtcc},
 	}
 
-	ch := make(chan Data) // shared-data channel
-	defer close(ch)
+	getCh := make(chan Data)      // shared-data channel for exchage REST get
+	postCh := make(chan DTO, 100) // post to nodeJs
+	defer func() {
+		close(getCh)
+		close(postCh)
+	}()
 
 	for _, pT := range pREST {
-		go TickWrapper(pT, ch)
+		go TickWrapper(pT, getCh)
 	}
-	go TickSimulate(time.NewTicker(T*time.Second), ch)
+	go TickSimulate(time.NewTicker(T*time.Second), getCh, postCh)
+
+	go PostToNode(postCh)
 
 	ReadCmd()
+}
+
+// PostToNode : send current sync data to nodeJs server
+func PostToNode(in <-chan DTO) {
+	for dto := range in { // blockQ using buffered channel
+		jsonValue, _ := json.Marshal(dto)
+		if resp, err := http.Post("http://localhost:3000/api/btc", "application/json", bytes.NewBuffer(jsonValue)); err == nil {
+			defer resp.Body.Close()
+			fmt.Printf("client rcvd-statusCode : %d \n", resp.StatusCode)
+		} else {
+			fmt.Println(err)
+		}
+	}
 }
 
 // TickWrapper ... rest api
@@ -52,6 +74,7 @@ func TickWrapper(pT *REST, ch chan Data) {
 			//fmt.Printf("%s  (REST)get:  %+v\n", tic.Format("15:04:05 EST"), data)
 			select { // non-block
 			case ch <- data:
+			default:
 			}
 		} else {
 			log.Println(err)

@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func TestRest(t *testing.T) {
+func TestTick(t *testing.T) {
 	// funcs
 	rests := []struct {
 		API    func(string) (Data, error)
