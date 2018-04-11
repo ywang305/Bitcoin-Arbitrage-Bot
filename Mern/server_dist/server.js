@@ -23,6 +23,11 @@ const app = (0, _express2.default)();
 app.use(_express2.default.static('static'));
 app.use(_bodyParser2.default.json());
 
+app.get('/api/hello', (req, res) => {
+	//res.send('Hello Syracuse!\n');
+	res.json();
+});
+
 app.post('/api/btc', (req, res) => {
 	const data = req.body; // body-parser assign to it
 	res.sendStatus(200);

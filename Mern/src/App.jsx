@@ -1,15 +1,14 @@
-
-import React from 'react-dom';
-import {Router} from 'react-router-dom';
-
-function foo() {
-	let str = 'ok';
-	return str;
-}
-
-var x = 10;
+import 'babel-polyfill';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import PriceChart from './Chart.jsx';
 
 
+const contentNode = document.getElementById('contents');
+ReactDOM.render(<PriceChart />, contentNode);
+
+
+// HMR from webpack
 if (module.hot) {
 	module.hot.accept();
 }

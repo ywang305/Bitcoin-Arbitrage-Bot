@@ -145,14 +145,26 @@
 "use strict";
 
 
+__webpack_require__(/*! babel-polyfill */ "./node_modules/babel-polyfill/lib/index.js");
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
 var _reactDom = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var contentNode = document.getElementById('contents');
+_reactDom2.default.render(_react2.default.createElement(
+	'h1',
+	null,
+	' Hello, world! '
+), contentNode);
+
+// HMR from webpack
 if (false) {}
 
 /***/ })

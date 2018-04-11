@@ -9,6 +9,18 @@ app.use(express.static('static'));
 app.use(bodyParser.json());
 
 
+
+
+
+
+app.get('/api/hello', (req, res)=> {
+	//res.send('Hello Syracuse!\n');
+	res.json();
+});
+
+
+
+
 app.post('/api/btc', (req, res) => {
 	const data = req.body; // body-parser assign to it
 	res.sendStatus(200);
