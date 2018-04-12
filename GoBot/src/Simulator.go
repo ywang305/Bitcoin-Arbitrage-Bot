@@ -4,7 +4,9 @@ import (
 	"time"
 )
 
-// Data Trasfer Object: for http.Post
+/* 	DTO, Data Trasfer Object: for http.Post
+Type [trade, tick],  ID is time.Format
+*/
 type DTO struct {
 	Type  string `json:"type"`
 	ID    string `json:"id"`
@@ -15,11 +17,12 @@ type DTO struct {
 
 // Transaction with delay
 func SimTransact(id string, from Data, to Data, out chan<- DTO) {
-	delay := time.Duration(60)
-
+	delay := time.Duration(60) // setup delay here !!!
 	time.Sleep(delay * time.Second)
+
 	fromEnt := tasks[from.Title]
 	toEnt := tasks[to.Title]
+
 	if minAsker, err1 := fromEnt.run(fromEnt.symbol); err1 == nil {
 		if maxBider, err2 := toEnt.run(toEnt.symbol); err2 == nil {
 			postData := DTO{

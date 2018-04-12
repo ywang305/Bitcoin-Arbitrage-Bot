@@ -18,6 +18,8 @@ type REST struct {
 	run    func(string) (Data, error)
 }
 
+const NodeURI = "http://localhost:8000/api/btc"
+
 // Sync Cycle
 const T = time.Duration(6)
 
@@ -58,9 +60,9 @@ func main() {
 func PostToNode(in <-chan DTO) {
 	for dto := range in { // blockQ using buffered channel
 		jsonValue, _ := json.Marshal(dto)
-		if resp, err := http.Post("http://localhost:3000/api/btc", "application/json", bytes.NewBuffer(jsonValue)); err == nil {
+		if resp, err := http.Post(NodeURI, "application/json", bytes.NewBuffer(jsonValue)); err == nil {
 			defer resp.Body.Close()
-			fmt.Printf("client rcvd-statusCode : %d \n", resp.StatusCode)
+			fmt.Printf("POST status : %s\n", resp.Status)
 		} else {
 			log.Println(err)
 		}

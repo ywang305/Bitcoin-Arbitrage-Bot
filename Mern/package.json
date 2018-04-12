@@ -6,6 +6,8 @@
   "scripts": {
     "compile-react": "webpack",
     "compile-node": "babel server --presets es2015-node --out-dir server_dist --source-maps",
+    "start-db": "sudo service mongod start",
+    "init-db": "mongo ./script/init.mongo.js",
     "start-node": "nodemon -w server_dist server_dist/server.js",
     "watch-react": "webpack-dev-server --hot --inline",
     "watch-node": "babel server --presets es2015-node --out-dir server_dist --source-maps --watch",
@@ -17,6 +19,7 @@
     "babel-polyfill": "^6.26.0",
     "body-parser": "^1.18.2",
     "express": "^4.16.3",
+    "mongodb": "^3.0.6",
     "source-map-support": "^0.5.4"
   },
   "devDependencies": {

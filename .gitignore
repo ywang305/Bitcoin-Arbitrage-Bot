@@ -1,3 +1,5 @@
 Gobot/bin
 GoBot/.vscode
 Mern/node_modules
+Mern/static/*.js
+Mern/static/*.map
