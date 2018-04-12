@@ -10,7 +10,6 @@ app.use(express.static('static'));
 app.use(bodyParser.json());
 
 let db;
-let cache = null;
 
 MongoClient.connect('mongodb://localhost:27017').then((clientDB) => {
 	db = clientDB.db('arbitrage'); // new from version 3.0
@@ -21,13 +20,13 @@ MongoClient.connect('mongodb://localhost:27017').then((clientDB) => {
 	console.log('ERROR: ', err);
 });
 
-
+let cache = { tick: null, trade: null};
 
 // return latest doc from mongo
-app.get('/api/btc', (req, res)=> {
-	if( cache ) {
-		let data = cache;
-		cache = null;
+app.get('/api/btc-tick', (req, res)=> {
+	if( cache.tick ) {
+		let data = cache.tick;
+		cache.tick = null;
 		res.json(data);
 	} else {
 		res.status(500).json({message: 'no data yet'});
@@ -45,11 +44,27 @@ app.get('/api/btc', (req, res)=> {
 	*/
 });
 
-app.post('/api/btc', (req, res) => {
-	const tick = req.body; // body-parser assign to it
-	cache = tick;
-	res.sendStatus(200);
+app.get('/api/btc-trade', (req, res)=> {
+	if( cache.trade ) {
+		let data = cache.trade;
+		cache.trade = null;
+		res.json(data);
+	} else {
+		res.status(500).json({message: 'no data yet'});
+	}
+});
 
+
+app.post('/api/btc', (req, res) => {
+	res.sendStatus(200);
+	const data = req.body; // body-parser assign to it
+	if(data.type=='tick') {
+		cache.tick = data;
+	} else if (data.type=='trade') {
+		cache.trade = data;
+	}
+	
+	
 	/*
 	db.collection('btc').insertOne(tick).then( ()=>{
 		res.sendStatus(200);

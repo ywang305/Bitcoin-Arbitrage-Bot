@@ -3,7 +3,6 @@ import { LineChart, Line, XAxis, YAxis, Tooltip } from 'recharts';
 import 'whatwg-fetch';
 
 
-
 export default class PriceChart extends React.Component {
 	constructor(props) {
 		super(props);
@@ -13,39 +12,34 @@ export default class PriceChart extends React.Component {
 			{time:'12:02', Provider1: 18, Provider2: 22,},
 			{time:'12:03', Provider1: 7,  Provider2: 45,},
 		]};*/
-		this.state = { prices: []};
-		this.docs = [];  // queue
+		this.state = { prices: [], yAxisDomain:[]};
 	}
 
-	componentDidMount() {
-		this.timerID = setInterval(
-			() => this.loadData()
-			,1000
-		);
-	}
-	componentWillUnmount() {
-		clearInterval(this.timerID);
+	componentWillReceiveProps(newProps) {
+		this.update(newProps.price);
 	}
 
-	loadData() {
-		fetch('/api/btc')
-			.then( res => {
-				if(res.ok) {
-					res.json().then( data => {
-						alert(JSON.stringify(data.id));
-					});
-				}
-			}).catch( err=>{
-				alert(`Error in feching data from server: ${err}`);
-			});
+	update(price) {
+		let newPrices = this.state.prices.slice();
+		newPrices.push(price);
+		let bid = price.bid;
+		let ask = price.ask;
+		let yDomain = this.state.yAxisDomain.slice();
+		let gap = (ask-bid)/2;
+		if(yDomain.length<2) {
+			yDomain = [bid-gap, ask+gap];
+		} else {
+			yDomain[0] = bid-gap < yDomain[0]? bid-gap : yDomain[0];
+			yDomain[1] = ask+gap > yDomain[1]? ask+gap : yDomain[1];
+		}
+		this.setState({prices: newPrices, yAxisDomain: yDomain});	
 	}
-
 
 	render() {
 		return (
 			<LineChart width={800} height={400} data={this.state.prices}>
 				<XAxis dataKey="time"/>
-				<YAxis />
+				<YAxis domain={this.state.yAxisDomain}/>
 				<Tooltip />
 				<Line type="monotone" dataKey="bid" stroke="#8884d8" />
 				<Line type="monotone" dataKey="ask" stroke="#82ca9d" />

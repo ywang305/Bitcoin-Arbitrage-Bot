@@ -1,11 +1,11 @@
 import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import PriceChart from './Chart.jsx';
+import ChartGrid from './ChartGrid.jsx';
 
 
 const contentNode = document.getElementById('contents');
-ReactDOM.render(<PriceChart />, contentNode);
+ReactDOM.render(<ChartGrid />, contentNode);
 
 
 
