@@ -25,7 +25,7 @@ export default class CharGrid extends React.Component {
 			.then( res => {
 				if(res.ok) {
 					res.json().then( data => {
-						//console.log(data);
+						console.log(data);
 						this.update(data);
 					});
 				}

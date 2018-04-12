@@ -155,17 +155,268 @@ var _reactDom = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/i
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
+var _ChartGrid = __webpack_require__(/*! ./ChartGrid.jsx */ "./src/ChartGrid.jsx");
+
+var _ChartGrid2 = _interopRequireDefault(_ChartGrid);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var contentNode = document.getElementById('contents');
-_reactDom2.default.render(_react2.default.createElement(
-	'h1',
-	null,
-	' Hello, world! '
-), contentNode);
+_reactDom2.default.render(_react2.default.createElement(_ChartGrid2.default, null), contentNode);
 
-// HMR from webpack
+// HMR from webpack-dev
 if (false) {}
+
+/***/ }),
+
+/***/ "./src/Chart.jsx":
+/*!***********************!*\
+  !*** ./src/Chart.jsx ***!
+  \***********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _recharts = __webpack_require__(/*! recharts */ "./node_modules/recharts/es6/index.js");
+
+__webpack_require__(/*! whatwg-fetch */ "./node_modules/whatwg-fetch/fetch.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var PriceChart = function (_React$Component) {
+	_inherits(PriceChart, _React$Component);
+
+	function PriceChart(props) {
+		_classCallCheck(this, PriceChart);
+
+		/*
+  this.state = { prices: [
+  	{time:'12:01', Provider1: 12, Provider2: 19, },
+  	{time:'12:02', Provider1: 18, Provider2: 22,},
+  	{time:'12:03', Provider1: 7,  Provider2: 45,},
+  ]};*/
+		var _this = _possibleConstructorReturn(this, (PriceChart.__proto__ || Object.getPrototypeOf(PriceChart)).call(this, props));
+
+		_this.state = { prices: [], yAxisDomain: [] };
+		return _this;
+	}
+
+	_createClass(PriceChart, [{
+		key: 'componentWillReceiveProps',
+		value: function componentWillReceiveProps(newProps) {
+			this.update(newProps.price);
+		}
+	}, {
+		key: 'update',
+		value: function update(price) {
+			var newPrices = this.state.prices.slice();
+			newPrices.push(price);
+			var bid = price.bid;
+			var ask = price.ask;
+			var yDomain = this.state.yAxisDomain.slice();
+			var gap = (ask - bid) / 2;
+			if (yDomain.length < 2) {
+				yDomain = [bid - gap, ask + gap];
+			} else {
+				yDomain[0] = bid - gap < yDomain[0] ? bid - gap : yDomain[0];
+				yDomain[1] = ask + gap > yDomain[1] ? ask + gap : yDomain[1];
+			}
+			this.setState({ prices: newPrices, yAxisDomain: yDomain });
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			return _react2.default.createElement(
+				_recharts.LineChart,
+				{ width: 800, height: 400, data: this.state.prices },
+				_react2.default.createElement(_recharts.XAxis, { dataKey: 'time' }),
+				_react2.default.createElement(_recharts.YAxis, { domain: this.state.yAxisDomain }),
+				_react2.default.createElement(_recharts.Tooltip, null),
+				_react2.default.createElement(_recharts.Line, { type: 'monotone', dataKey: 'bid', stroke: '#8884d8' }),
+				_react2.default.createElement(_recharts.Line, { type: 'monotone', dataKey: 'ask', stroke: '#82ca9d' })
+			);
+		}
+	}]);
+
+	return PriceChart;
+}(_react2.default.Component);
+
+exports.default = PriceChart;
+
+/***/ }),
+
+/***/ "./src/ChartGrid.jsx":
+/*!***************************!*\
+  !*** ./src/ChartGrid.jsx ***!
+  \***************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Chart = __webpack_require__(/*! ./Chart.jsx */ "./src/Chart.jsx");
+
+var _Chart2 = _interopRequireDefault(_Chart);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CharGrid = function (_React$Component) {
+	_inherits(CharGrid, _React$Component);
+
+	function CharGrid(props) {
+		_classCallCheck(this, CharGrid);
+
+		var _this = _possibleConstructorReturn(this, (CharGrid.__proto__ || Object.getPrototypeOf(CharGrid)).call(this, props));
+
+		_this.state = { Gdax: {}, Trade: { ideal: 0.0, delay: 0.0 } };
+		return _this;
+	}
+
+	_createClass(CharGrid, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			var _this2 = this;
+
+			this.timerID = setInterval(function () {
+				_this2.loadData('/api/btc-tick');
+				_this2.loadData('/api/btc-trade');
+			}, 1000);
+		}
+	}, {
+		key: 'componentWillUnmount',
+		value: function componentWillUnmount() {
+			clearInterval(this.timerID);
+		}
+	}, {
+		key: 'loadData',
+		value: function loadData(uri) {
+			var _this3 = this;
+
+			fetch(uri).then(function (res) {
+				if (res.ok) {
+					res.json().then(function (data) {
+						//console.log(data);
+						_this3.update(data);
+					});
+				}
+			}).catch(function (err) {
+				console.log('Error in feching data from server: ' + err);
+			});
+		}
+	}, {
+		key: 'update',
+		value: function update(data) {
+			if (data.type && data.type == 'tick') {
+				var bid = void 0,
+				    ask = void 0;
+				var _iteratorNormalCompletion = true;
+				var _didIteratorError = false;
+				var _iteratorError = undefined;
+
+				try {
+					for (var _iterator = data.ticks[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+						var d = _step.value;
+
+						if (d.title == 'Coinbase') {
+							bid = d.bid;
+							ask = d.ask;
+							break;
+						}
+					}
+				} catch (err) {
+					_didIteratorError = true;
+					_iteratorError = err;
+				} finally {
+					try {
+						if (!_iteratorNormalCompletion && _iterator.return) {
+							_iterator.return();
+						}
+					} finally {
+						if (_didIteratorError) {
+							throw _iteratorError;
+						}
+					}
+				}
+
+				var clone = Object.assign({}, this.state.Trade);
+				clone[data.id] = data.to.bid - data.from.ask;
+				this.setState({ Gdax: { time: data.id.substr(-9, 5), bid: bid, ask: ask },
+					Trade: clone
+				});
+			} else if (data.type && data.type == 'trade' && this.state.Trade[data.id]) {
+				var realDiff = data.to.bid - data.from.ask;
+				var idealDiff = this.state.Trade[data.id];
+				var newIdeal = this.state.Trade.ideal + idealDiff;
+				var newDelay = this.state.Trade.delay + realDiff;
+
+				var _clone = Object.assign({}, this.state.Trade);
+				delete _clone[data.id];
+				_clone.ideal = newIdeal;
+				_clone.delay = newDelay;
+
+				this.setState({ Gdax: this.state.Gdax, Trade: _clone });
+			}
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			return _react2.default.createElement(
+				'div',
+				null,
+				_react2.default.createElement(_Chart2.default, { price: this.state.Gdax }),
+				_react2.default.createElement('hr', null),
+				_react2.default.createElement(
+					'div',
+					null,
+					' ideal: ',
+					this.state.Trade.ideal,
+					'    delay :  ',
+					this.state.Trade.delay,
+					' '
+				)
+			);
+		}
+	}]);
+
+	return CharGrid;
+}(_react2.default.Component);
+
+exports.default = CharGrid;
 
 /***/ })
 

@@ -1,14 +1,16 @@
 package main
 
 import (
+	"fmt"
 	"testing"
-	"time"
 )
 
+/*
 func TestFormat(t *testing.T) {
 	tic := time.Now()
 	t.Logf("time : %s", tic.Format("Jan 2 2006 15:04:05 EST"))
 }
+*/
 
 /*
 func TestTick(t *testing.T) {
@@ -93,3 +95,49 @@ func TestChannel(t *testing.T) {
 	}
 }
 */
+
+func Test_UnbufferedChannel(t *testing.T) {
+	log := fmt.Println
+	ch := make(chan string)
+
+	go func() {
+		msg := <-ch
+		log(" rcv : ", msg)
+	}()
+
+	ch <- "hello"
+	log(" sender : hello")
+	//ch <- "world" // stucked here since no one fetch this chan
+	//log("sender : world ")
+}
+
+func Test_BufferedChannel(t *testing.T) {
+	log := fmt.Println
+	ch := make(chan string, 1)
+
+	go func() {
+		msg := <-ch
+		log(" rcv : ", msg)
+	}()
+
+	ch <- "hello"
+	log(" sender : hello, len(ch) = ", len(ch))
+	ch <- "world"
+	log("sender : world, len(ch) = ", len(ch))
+	//ch <- "bye" // stucked since buffer is full
+	//log("sender : bye, len(ch) = ", len(ch))
+}
+
+func Test_SelectChannel(t *testing.T) {
+	logf := fmt.Printf
+	ch := make(chan int, 1)
+
+	for i := 0; i < 10; i++ {
+		select {
+		case x := <-ch:
+			logf("rcv : %d\n", x)
+		case ch <- i:
+			logf("snt: %d", i)
+		}
+	}
+}
