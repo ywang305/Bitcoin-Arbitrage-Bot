@@ -8,15 +8,19 @@ export default class PriceChart extends React.Component {
 		super(props);
 		/*
 		this.state = { prices: [
-			{time:'12:01', Provider1: 12, Provider2: 19, },
-			{time:'12:02', Provider1: 18, Provider2: 22,},
-			{time:'12:03', Provider1: 7,  Provider2: 45,},
+			{time:'12:01', bid: 12, ask: 19, },
+			{time:'12:02', bid: 18, ask: 22,},
+			{time:'12:03', bid: 7,  ask: 45,},
 		]};*/
 		this.state = { prices: [], yAxisDomain:[]};
 	}
 
 	componentWillReceiveProps(newProps) {
-		this.update(newProps.price);
+		let found = newProps.ticks.find( tk => tk.title == newProps.title );
+
+		if(found) {
+			this.update({time: newProps.id, bid: found.bid, ask: found.ask});
+		}
 	}
 
 	update(price) {

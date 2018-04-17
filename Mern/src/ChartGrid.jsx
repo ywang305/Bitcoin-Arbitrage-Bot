@@ -1,10 +1,14 @@
 import React from 'react';
 import PriceChart from './Chart.jsx';
+import { Grid, Row, Col } from 'react-bootstrap';
+
+  
+
 
 export default class CharGrid extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = { Gdax:{},  Trade:{ideal:0.0, delay:0.0}, };
+		this.state = { Ticks:[],  };
 	}
 
 	componentDidMount() {
@@ -36,6 +40,42 @@ export default class CharGrid extends React.Component {
 
 	update(data) {
 		if(data.type && data.type=='tick') {
+			this.setState({Ticks: data.ticks});
+		}
+	}
+	
+
+	render() {
+		return (
+			<Grid>
+				<Row> 
+					<Col> <PriceChart title='Coinbase' ticks={this.state.Ticks}/> </Col>
+					<Col> <PriceChart title='Gemini' ticks={this.state.Ticks}/> </Col> 
+					<Col> <PriceChart title='Itbit' ticks={this.state.Ticks}/> </Col>   
+				</Row>
+				<Row> 
+					<Col> <PriceChart title='Btcc' ticks={this.state.Ticks}/> </Col>
+					<Col> <PriceChart title='Bitstamp' ticks={this.state.Ticks}/> </Col> 
+					<Col> <PriceChart title='Bitfinex' ticks={this.state.Ticks}/> </Col>   
+				</Row>
+				<Row> 
+					<Col> <PriceChart title='Cex' ticks={this.state.Ticks}/> </Col>
+					<Col> <PriceChart title='Bitbay' ticks={this.state.Ticks}/> </Col> 
+					<Col> <PriceChart title='Gdax' ticks={this.state.Ticks}/> </Col>   
+				</Row>
+			</Grid>	
+		);
+	}
+}
+
+/* 	<PriceChart price={this.state.Gdax} />
+	<hr/>
+	<div> ideal: {this.state.Trade.ideal}    delay :  {this.state.Trade.delay} </div> 
+*/
+
+/*
+	update(data) {
+		if(data.type && data.type=='tick') {
 			let bid, ask;
 			for( let d of data.ticks) {
 				if(d.title=='Coinbase') {
@@ -45,10 +85,10 @@ export default class CharGrid extends React.Component {
 				}
 			}
             
-			let clone = Object.assign({}, this.state.Trade);
-			clone[data.id] = data.to.bid - data.from.ask;
+			let cloneTrade = Object.assign({}, this.state.Trade);
+			cloneTrade[data.id] = data.to.bid - data.from.ask;
 			this.setState({Gdax:{time:data.id.substr(-9, 5), bid:bid, ask:ask }, 
-				Trade: clone
+				Trade: cloneTrade
 			});
 		}
 		else if(data.type && data.type=='trade' && this.state.Trade[data.id]) {
@@ -65,14 +105,4 @@ export default class CharGrid extends React.Component {
 			this.setState({Gdax: this.state.Gdax,  Trade: clone});
 		}
 	}
-
-	render() {
-		return (
-			<div>
-				<PriceChart price={this.state.Gdax} />
-				<hr/>
-				<div> ideal: {this.state.Trade.ideal}    delay :  {this.state.Trade.delay} </div>
-			</div>
-		);
-	}
-}
+	*/
