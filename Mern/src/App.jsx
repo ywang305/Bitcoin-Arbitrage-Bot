@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import ChartGrid from './ChartGrid.jsx';
 
 
+
 const contentNode = document.getElementById('contents');
 ReactDOM.render(<ChartGrid />, contentNode);
 
