@@ -23,7 +23,7 @@
     - [x] Grid
     - [x] LineChart
     - [x] LineChart triggered Modal
-  - [] React-Bootstrap
+  - [ ] React-Bootstrap
     - [x] Header
     - [ ] Navbar dropdown selection
   - [ ] delay comparison
