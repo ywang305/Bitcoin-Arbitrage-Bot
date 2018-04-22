@@ -5,29 +5,23 @@
   - C/S High performance provided by Golang to handle concurrent, real-time synch RESTful ticker data from 10 bitcoin exchange markets
   - B/S Asynch data communication and visualization by Node and React
   
-## Development Progress
-
+## Roadmap
 - [x] Go bot
-  - [x] subscribe 9 exchanges RESTful APIs
+  - [x] 9 exchanges RESTful APIs
   - [x] pull price ticker
   - [x] synch architecture design
   - [x] send data to Node by RESTful Post
-  - [x] simulator trade logic (delay hardcoded)
-  
+  - [x] simulator trade logic (delay hardcoded) 
 - [x] Node server
-  - [x] REST APIs
+  - [x] REST APIs design
   - [x] MongoDB
   - [x] Webpack: devServer, app and vendor bindles
-
-- [x] React UI
-  - [x] built real-time monitor charts with Recharts open-source lib
-    - [x] Grid
-    - [x] LineChart
-    - [x] LineChart triggered Modal
-  - [ ] React-Bootstrap
-    - [x] Header
-    - [ ] Navbar dropdown selection
-  - [ ] delay comparison
+- [x] React
+  - [x] Rechart for chart UI
+  - [x] React-Boostrap Grid
+  - [x] React boostrap Modal
+  - [x] React boostrap Navbar
+  - [ ] react gauge for profit monitor UI
 
 ## Tech Probes
 ![image](https://user-images.githubusercontent.com/24782000/38705411-7f18f74e-3e77-11e8-9052-314261ffa20d.png)
