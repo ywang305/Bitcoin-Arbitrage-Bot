@@ -1,4 +1,5 @@
 # Bitcoin-Arbitrage-Bot
+  Single Page App using Go, Node, React 
 
 ## combination of synch and asynch, real-time and event service systems.
   - C/S High performance provided by Golang to handle concurrent, real-time synch RESTful ticker data from 10 bitcoin exchange markets
@@ -19,7 +20,7 @@
   - [x] Webpack: devServer, app and vendor bindles
 
 - [x] React UI
-  - [x] built charts with Recharts open-source lib
+  - [x] built real-time monitor charts with Recharts open-source lib
     - [x] Grid
     - [x] LineChart
     - [x] LineChart triggered Modal
@@ -28,7 +29,7 @@
     - [ ] Navbar dropdown selection
   - [ ] delay comparison
 
-
+## Tech Probes
 ![image](https://user-images.githubusercontent.com/24782000/38705411-7f18f74e-3e77-11e8-9052-314261ffa20d.png)
 
 ![image](https://user-images.githubusercontent.com/24782000/38848058-f77cc734-41d2-11e8-9f64-ede3b54c5a3e.png)
