@@ -19,8 +19,9 @@
 - [x] React
   - [x] Rechart for chart UI
   - [x] React-Boostrap Grid
-  - [x] React boostrap Modal
-  - [x] React boostrap Navbar
+  - [x] React boostrap Navbar: play, pause control button
+  - [x] React boostrap Modal for Rechart's click zoom-in
+  - [x] React boostrap Navbar: menu popover for help messages
   - [ ] react gauge for profit monitor UI
 
 ## Tech Probes
