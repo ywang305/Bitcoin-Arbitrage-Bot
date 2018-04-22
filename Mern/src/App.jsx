@@ -1,8 +1,14 @@
 import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'whatwg-fetch';
+import Header from './Header.jsx';
 import ChartGrid from './ChartGrid.jsx';
-import { Glyphicon, Button, Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
+
+
+
+
+
 
 class AppStart extends React.Component {
 	constructor(props) {
@@ -10,7 +16,7 @@ class AppStart extends React.Component {
 
 		this.play = this.play.bind(this);
 		this.pause = this.pause.bind(this);
-		this.state = { Ticks:[],  };
+		this.state = { Ticks:[] };
 	}
 	play() {
 		if(this.timerID) return;
@@ -37,7 +43,9 @@ class AppStart extends React.Component {
 				if(res.ok) {
 					res.json().then( data => {
 						console.log(data);
-						this.update(data);
+						if(data.type && data.type=='tick') {
+							this.setState({Ticks: data.ticks});
+						}
 					});
 				}
 			}).catch( err=>{
@@ -45,46 +53,13 @@ class AppStart extends React.Component {
 			});
 	}
 
-	update(data) {
-		if(data.type && data.type=='tick') {
-			this.setState({Ticks: data.ticks});
-		}
-	}
-	
 	
 
 	render() {
 		return (
 			<div> 
-				<Navbar inverse collapseOnSelect>
-					<Navbar.Header>
-						<Navbar.Brand><a href='#'>Bitcoin-Arbitrage Charts</a></Navbar.Brand>
-						<Navbar.Toggle />
-					</Navbar.Header>
-					<Navbar.Collapse>
-						<Nav>
-							<NavItem>
-								<Button bsStyle="primary" onClick={this.play}>
-									<Glyphicon glyph="play" />
-								</Button> 
-							</NavItem>
-							<NavItem>
-								<Button bsStyle="success" onClick={this.pause}>
-									<Glyphicon glyph="pause" />
-								</Button>
-							</NavItem>
-						</Nav>
-						<Nav pullRight>
-							<NavDropdown id="user-dropdown" title="Exchanges" noCaret>
-								<MenuItem>Coinbase</MenuItem>
-								<MenuItem>Bitfinex</MenuItem>
-							</NavDropdown>
-						</Nav>
-					</Navbar.Collapse>
-				</Navbar>
-
-				<ChartGrid ticks={this.state.Ticks} />
-			
+				<Header play={this.play} pause={this.pause}/>
+				<ChartGrid ticks={this.state.Ticks}/>
 			</div>
 		);
 	}

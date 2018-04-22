@@ -1,25 +1,38 @@
 import React from 'react';
 import PriceChart from './Chart.jsx';
-import { Grid, Row, Col } from 'react-bootstrap';
+import {Table, Grid, Row, Col } from 'react-bootstrap';
 
-  
-const ChartGrid = (props) => (
-	<Grid>
-		<Row> 
-			<Col xs={12} sm={6} md={4}> <PriceChart title='Coinbase' ticks={props.ticks}/> </Col>
-			<Col xs={12} sm={6} md={4}> <PriceChart title='Gemini' ticks={props.ticks}/> </Col> 
-			<Col xs={12} sm={6} md={4}> <PriceChart title='Itbit' ticks={props.ticks}/> </Col>    
+const gStyle = {
+	'margin-top': '50px'
+};
 
-			<Col xs={12} sm={6} md={4}> <PriceChart title='Btcc' ticks={props.ticks}/> </Col>
-			<Col xs={12} sm={6} md={4}> <PriceChart title='Bitstamp' ticks={props.ticks}/> </Col> 
-			<Col xs={12} sm={6} md={4}> <PriceChart title='Bitfinex' ticks={props.ticks}/> </Col>
+const ChartGrid = (props) => {
+	const titles = ['Coinbase', 'Gemini', 'Itbit',
+		'Btcc', 'Bitstamp', 'Bitfinex',
+		'Cex', 'Bitbay', 'Gdax' ];
 
-			<Col xs={12} sm={6} md={4}> <PriceChart title='Cex' ticks={props.ticks}/> </Col>
-			<Col xs={12} sm={6} md={4}> <PriceChart title='Bitbay' ticks={props.ticks}/> </Col> 
-			<Col xs={12} sm={6} md={4}> <PriceChart title='Gdax' ticks={props.ticks}/> </Col>   
-		</Row>
-	</Grid>
-);
+	const arrCols =	titles.map(t => (
+		<Col xs={12} sm={6} md={4}> 
+			<Table condensed hover striped>
+				<thead>
+					<tr><th>{t}</th></tr>
+				</thead>
+				<tbody>
+					<tr><td>
+						<PriceChart title={t} ticks={props.ticks} /> 
+					</td></tr>
+				</tbody>
+			</Table>
+		</Col>
+	));
+
+	return (
+		<Grid style={gStyle}>
+			<Row>{arrCols}</Row>
+		</Grid>
+	);
+};
+
 
 
 export default ChartGrid;
