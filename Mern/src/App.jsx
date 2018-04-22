@@ -35,7 +35,6 @@ class AppStart extends React.Component {
 			this.timerID = undefined;
 		}
 	}
-	
 
 	loadData(uri) {
 		fetch(uri)
@@ -58,7 +57,7 @@ class AppStart extends React.Component {
 	render() {
 		return (
 			<div> 
-				<Header play={this.play} pause={this.pause}/>
+				<Header play={this.play} pause={this.pause} />
 				<ChartGrid ticks={this.state.Ticks}/>
 			</div>
 		);

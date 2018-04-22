@@ -11,7 +11,7 @@ const ChartGrid = (props) => {
 		'Btcc', 'Bitstamp', 'Bitfinex',
 		'Cex', 'Bitbay', 'Gdax' ];
 
-	const arrCols =	titles.map(t => (
+	const charts =	titles.map(t => (
 		<Col xs={12} sm={6} md={4}> 
 			<Table condensed hover striped>
 				<thead>
@@ -28,7 +28,8 @@ const ChartGrid = (props) => {
 
 	return (
 		<Grid style={gStyle}>
-			<Row>{arrCols}</Row>
+			<Row> </Row>
+			<Row>{charts}</Row>
 		</Grid>
 	);
 };
