@@ -50,9 +50,9 @@ real-time trade list | mongo document
 ![real-time trade list](https://user-images.githubusercontent.com/24782000/39147467-a89b487c-4707-11e8-898c-fd2973260229.png) | ![mongodb](https://user-images.githubusercontent.com/24782000/39147465-a87192fc-4707-11e8-93a8-73d4dfbe20cf.png)
 
 
-## Tech Probes
- 4-12-2018     |
--------------- | -------------
+## Part of Tech Probes
+time 4-12-2018| loc CST4-201
+--------------| -------------
 ![image](https://user-images.githubusercontent.com/24782000/38705411-7f18f74e-3e77-11e8-9052-314261ffa20d.png) | ![image](https://user-images.githubusercontent.com/24782000/38848058-f77cc734-41d2-11e8-9f64-ede3b54c5a3e.png)
 
 ![image](https://user-images.githubusercontent.com/24782000/38705452-98f4424a-3e77-11e8-9d46-57ab5e602f9c.png)
