@@ -44,13 +44,11 @@ export default class GaugeGrid extends React.Component {
 							</thead>
 							<tbody>
 								<tr><td>
+									{this.state.id} <br />
+									{this.state.iTrans.from.title?`${this.state.iTrans.from.title} => ${this.state.iTrans.to.title}`: null} 
+								</td></tr>
+								<tr><td>
 									<TickTradeGauge trans={this.state.iTrans} /> 
-								</td></tr>
-								<tr><td>
-									{this.state.id} 
-								</td></tr>
-								<tr><td>
-									{`${this.state.iTrans.from.title} => ${this.state.iTrans.to.title}`} 
 								</td></tr>
 							</tbody>
 						</Table>
@@ -62,13 +60,11 @@ export default class GaugeGrid extends React.Component {
 							</thead>
 							<tbody>
 								<tr><td>
+									{this.state.id} <br />
+									{this.state.dTrans.from.title?`${this.state.dTrans.from.title} => ${this.state.dTrans.to.title}`: null} 
+								</td></tr>
+								<tr><td>
 									<TickTradeGauge trans={this.state.dTrans} /> 
-								</td></tr>
-								<tr><td>
-									{this.state.id} 
-								</td></tr>
-								<tr><td>
-									{`${this.state.dTrans.from.title} => ${this.state.dTrans.to.title}`} 
 								</td></tr>
 							</tbody>
 						</Table>
@@ -80,10 +76,10 @@ export default class GaugeGrid extends React.Component {
 							</thead>
 							<tbody>
 								<tr><td>
-									<AccumTradeGauge/> 
+									{this.state.id} <br/>
 								</td></tr>
 								<tr><td>
-									{this.state.id} 
+									<AccumTradeGauge trans={this.state.iTrans}/> 
 								</td></tr>
 							</tbody>
 						</Table>
@@ -95,10 +91,10 @@ export default class GaugeGrid extends React.Component {
 							</thead>
 							<tbody>
 								<tr><td>
-									<AccumTradeGauge/> 
+									{this.state.id} <br/>
 								</td></tr>
 								<tr><td>
-									{this.state.id} 
+									<AccumTradeGauge trans={this.state.dTrans}/> 
 								</td></tr>
 							</tbody>
 						</Table>

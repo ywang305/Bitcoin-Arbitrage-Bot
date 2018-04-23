@@ -4,11 +4,13 @@ restart :  sudo service mongod restart
 stop serivce: sudo service mongod stop
 start this js:  mongo path/...js
 ======================================
+
 to validate in shell:
-    mongo
-    use issuetracker   // initialized by getDB('issuetracker')
-    show collections  //-> issues
-    db.issues.find({}).pretty()
+
+    mongo           //  show databases  --> test, arbitrage, ...  // db  --> list current used db (default test)
+    use arbitrage   // initialized by getDB('arbitrage')
+    show collections  //-> btc
+    db.btc.find({}).pretty()
 */
 
 // @ts-ignore

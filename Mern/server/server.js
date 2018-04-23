@@ -56,6 +56,7 @@ app.get('/api/btc-trade', (req, res)=> {
 
 
 app.post('/api/btc', (req, res) => {
+	/* // -- no mongod 
 	res.sendStatus(200);
 	const data = req.body; // body-parser assign to it
 	if(data.type=='tick') {
@@ -63,15 +64,18 @@ app.post('/api/btc', (req, res) => {
 	} else if (data.type=='trade') {
 		cache.trade = data;
 	}
+	*/
 	
 	
-	/*
-	db.collection('btc').insertOne(tick).then( ()=>{
+	const data = req.body; // body-parser assign to it
+	
+	db.collection('btc').insertOne(data).then( ()=>{
 		res.sendStatus(200);
+		cache[data.type] = data;
 	})
 		.catch((err) => {
 			console.log(err);
 			res.status(500).json({ message: `Internal Server Error: ${err}` });
-		}); */
+		});
 });
 
