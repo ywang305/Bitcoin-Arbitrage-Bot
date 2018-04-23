@@ -1,6 +1,6 @@
 import React from 'react';
 import PriceChart from './Chart.jsx';
-import {Table, Grid, Row, Col } from 'react-bootstrap';
+import { Table, Grid, Row, Col } from 'react-bootstrap';
 
 const gStyle = {
 	'margin-top': '50px'
@@ -19,7 +19,7 @@ const ChartGrid = (props) => {
 				</thead>
 				<tbody>
 					<tr><td>
-						<PriceChart title={t} ticks={props.ticks} /> 
+						<PriceChart title={t} id={props.id} ticks={props.ticks} /> 
 					</td></tr>
 				</tbody>
 			</Table>
@@ -28,7 +28,6 @@ const ChartGrid = (props) => {
 
 	return (
 		<Grid style={gStyle}>
-			<Row> </Row>
 			<Row>{charts}</Row>
 		</Grid>
 	);

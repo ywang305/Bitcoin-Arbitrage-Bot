@@ -37,19 +37,24 @@ const Header = (props)=>{
 	return (
 		<Navbar inverse collapseOnSelect fixedTop>
 			<Navbar.Header>
-				<Navbar.Brand><a href='#'>Bitcoin-Arbitrage Charts</a></Navbar.Brand>
+				<Navbar.Brand><a href='#'>CryptoWatch</a></Navbar.Brand>
 				<Navbar.Toggle />
 			</Navbar.Header>
 			<Navbar.Collapse>
 				<Nav>
 					<NavItem>
 						<Button bsSize="xsmall" bsStyle="primary" onClick={props.play}>
-							<Glyphicon glyph="play" />
+							<Glyphicon glyph="play" /> start
 						</Button> 
 					</NavItem>
 					<NavItem>
 						<Button bsSize="xsmall" bsStyle="success" onClick={props.pause}>
-							<Glyphicon glyph="pause" />
+							<Glyphicon glyph="pause" /> pause
+						</Button>
+					</NavItem>
+					<NavItem>
+						<Button bsSize="xsmall" bsStyle="danger" onClick={props.toggleGauge}>
+							<Glyphicon glyph="dashboard" /> gauge
 						</Button>
 					</NavItem>
 				</Nav>

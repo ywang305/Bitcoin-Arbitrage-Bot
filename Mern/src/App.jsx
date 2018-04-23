@@ -4,10 +4,7 @@ import ReactDOM from 'react-dom';
 import 'whatwg-fetch';
 import Header from './Header.jsx';
 import ChartGrid from './ChartGrid.jsx';
-
-
-
-
+import GaugeGrid from './GaugeGrid.jsx';
 
 
 class AppStart extends React.Component {
@@ -16,8 +13,15 @@ class AppStart extends React.Component {
 
 		this.play = this.play.bind(this);
 		this.pause = this.pause.bind(this);
-		this.state = { Ticks:[] };
+		this.toggleGauge = this.toggleGauge.bind(this);
+		this.state = { inData:{ id:'', ticks:[] }, isShowGauge: false};
 	}
+
+	toggleGauge() {
+		this.setState({ inData:{ id:'', ticks:[]},  isShowGauge: !this.state.isShowGauge, });
+	}
+
+
 	play() {
 		if(this.timerID) return;
 		// use lambda to bind "this"
@@ -41,10 +45,8 @@ class AppStart extends React.Component {
 			.then( res => {
 				if(res.ok) {
 					res.json().then( data => {
-						console.log(data);
-						if(data.type && data.type=='tick') {
-							this.setState({Ticks: data.ticks});
-						}
+						//console.log(data);
+						this.setState({ inData: data,  isShowGauge:this.state.isShowGauge });
 					});
 				}
 			}).catch( err=>{
@@ -57,8 +59,9 @@ class AppStart extends React.Component {
 	render() {
 		return (
 			<div> 
-				<Header play={this.play} pause={this.pause} />
-				<ChartGrid ticks={this.state.Ticks}/>
+				<Header play={this.play} pause={this.pause} toggleGauge={this.toggleGauge}/>
+				<GaugeGrid isShow={this.state.isShowGauge} inData={this.state.inData} />
+				<ChartGrid id={this.state.inData.id} ticks={this.state.inData.ticks} />
 			</div>
 		);
 	}

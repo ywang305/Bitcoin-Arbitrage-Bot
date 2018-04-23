@@ -18,10 +18,11 @@ export default class PriceChart extends React.Component {
 	}
 
 	componentWillReceiveProps(newProps) {
+		if( newProps.ticks==null || !newProps.id ) return;
+		
 		let found = newProps.ticks.find( tk => tk.title == newProps.title );
-
 		if(found) {
-			this.update({time: newProps.id, bid: found.bid, ask: found.ask});
+			this.update({time: newProps.id.substr(-9,5), bid: found.bid, ask: found.ask});
 		}
 	}
 
@@ -64,7 +65,7 @@ export default class PriceChart extends React.Component {
 				<CartesianGrid strokeDasharray="3 3"/>
 				<Tooltip />
 				<Line type="monotone" dataKey="bid" stroke="#8884d8" />
-				<Line type="monotone" dataKey="ask" stroke="#82ca9d" />
+				<Line type="monotone" dataKey="ask" stroke="#f44242" />
 			</LineChart>
 		</ResponsiveContainer>);
 
