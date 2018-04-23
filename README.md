@@ -2,8 +2,21 @@
   Single Page App using Go, Node, React 
 
 ## combination of synch and asynch, real-time and event service systems.
-  - C/S High performance provided by Golang to handle concurrent, real-time synch RESTful ticker data from 10 bitcoin exchange markets
+  - C/S High performance provided by Golang to handle concurrent, real-time synch RESTful price ticker from 10 bitcoin exchange markets
   - B/S Asynch data communication and visualization by Node and React
+### usage
+  - in subproject "GoBot", run makefile script
+    - "make all": rebuild then run
+    - "make run": executing go bot
+  - in subproject "Mern", run npm script
+    - "npm run start-db": start mongod service
+    - "npm run init-db" : init/ empty mongo
+    - "npm run dev-all" : start webpack devServer
+    - "npm run compile-react" : release react
+    - "npm run compile-node" : release node
+  - client port : 
+    - devServer: localhost:8000
+    - server:  localhost:3000
   
 ## Roadmap
 - [x] Go bot
