@@ -35,12 +35,25 @@
   - [x] React boostrap Navbar: play, pause control button
   - [x] React boostrap Modal for Rechart's click zoom-in
   - [x] React boostrap Navbar: menu popover for help messages
-  - [ ] react gauge for profit monitor UI
+  - [x] react gauge for profit monitor UI
+## React Single Page App screenshot
+charts grid | big chart modal
+---- | ----
+![chart_grid](https://user-images.githubusercontent.com/24782000/39147446-9bbbb560-4707-11e8-8c18-09e9127bdd97.png)|![big chart on modal](https://user-images.githubusercontent.com/24782000/39147469-a8b80f0c-4707-11e8-9ee6-43a2e76389f6.png)
+
+navbar menu | trade monitor gauges
+----------- | --------------------
+![navbar_menulist](https://user-images.githubusercontent.com/24782000/39147466-a8865dfe-4707-11e8-880b-01dd70a6bf16.png) | ![trade analysis gauges](https://user-images.githubusercontent.com/24782000/39147468-a8adaf6c-4707-11e8-9434-15042d2051a7.png)
+
+real-time trade list | mongo document
+-------------------- | --------------
+![real-time trade list](https://user-images.githubusercontent.com/24782000/39147467-a89b487c-4707-11e8-898c-fd2973260229.png) | ![mongodb](https://user-images.githubusercontent.com/24782000/39147465-a87192fc-4707-11e8-93a8-73d4dfbe20cf.png)
+
 
 ## Tech Probes
-![image](https://user-images.githubusercontent.com/24782000/38705411-7f18f74e-3e77-11e8-9052-314261ffa20d.png)
-
-![image](https://user-images.githubusercontent.com/24782000/38848058-f77cc734-41d2-11e8-9f64-ede3b54c5a3e.png)
+ 4-12-2018     |
+-------------- | -------------
+![image](https://user-images.githubusercontent.com/24782000/38705411-7f18f74e-3e77-11e8-9052-314261ffa20d.png) | ![image](https://user-images.githubusercontent.com/24782000/38848058-f77cc734-41d2-11e8-9f64-ede3b54c5a3e.png)
 
 ![image](https://user-images.githubusercontent.com/24782000/38705452-98f4424a-3e77-11e8-9d46-57ab5e602f9c.png)
 
