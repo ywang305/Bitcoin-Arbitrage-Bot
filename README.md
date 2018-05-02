@@ -41,7 +41,7 @@
   - [x] React boostrap Modal for Rechart's click zoom-in
   - [x] React boostrap Navbar: menu popover for help messages
   - [x] react gauge for profit monitor UI
- - [ ] todo
+- [ ] todo
   - [ ] Websocket for pushing ticker from node to client
   - [ ] GraphQL for various exchange REST APIs
 
