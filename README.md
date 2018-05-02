@@ -16,8 +16,8 @@
     - "npm run start-db": start mongod service
     - "npm run init-db" : init/ empty mongo
     - "npm run dev-all" : start webpack devServer
-    - "npm run compile-react" : release react
-    - "npm run compile-node" : release node
+    - "npm run compile-react" : building react production
+    - "npm run compile-node" : building node production
   - client port : 
     - devServer: localhost:8000
     - server:  localhost:3000
@@ -33,6 +33,7 @@
   - [x] REST APIs design
   - [x] MongoDB
   - [x] Webpack: devServer, app and vendor bindles
+  - [x] pull data from node using whatwg-fetch
 - [x] React
   - [x] Rechart for chart UI
   - [x] React-Boostrap Grid
@@ -40,6 +41,10 @@
   - [x] React boostrap Modal for Rechart's click zoom-in
   - [x] React boostrap Navbar: menu popover for help messages
   - [x] react gauge for profit monitor UI
+ - [ ] todo
+  - [ ] Websocket for pushing ticker from node to client
+  - [ ] GraphQL for various exchange REST APIs
+
 ## React Single Page App screenshot
 charts grid | big chart modal
 ---- | ----
